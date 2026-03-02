@@ -2,7 +2,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: TechStoreOrders.Api/Dockerfile
+      dockerfile: src/TechStoreOrders.Api/Dockerfile
     container_name: tech-store-orders-api
     environment:
       ASPNETCORE_ENVIRONMENT: Development

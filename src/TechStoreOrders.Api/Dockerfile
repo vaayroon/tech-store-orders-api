@@ -1,13 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY ["TechStoreOrders.Api/TechStoreOrders.Api.csproj", "TechStoreOrders.Api/"]
-COPY ["TechStoreOrders.Application/TechStoreOrders.Application.csproj", "TechStoreOrders.Application/"]
-COPY ["TechStoreOrders.Domain/TechStoreOrders.Domain.csproj", "TechStoreOrders.Domain/"]
-COPY ["TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj", "TechStoreOrders.Infrastructure/"]
+COPY ["src/TechStoreOrders.Api/TechStoreOrders.Api.csproj", "TechStoreOrders.Api/"]
+COPY ["src/TechStoreOrders.Application/TechStoreOrders.Application.csproj", "TechStoreOrders.Application/"]
+COPY ["src/TechStoreOrders.Domain/TechStoreOrders.Domain.csproj", "TechStoreOrders.Domain/"]
+COPY ["src/TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj", "TechStoreOrders.Infrastructure/"]
 RUN dotnet restore "TechStoreOrders.Api/TechStoreOrders.Api.csproj"
 
-COPY . .
+COPY src/ .
 WORKDIR "/src/TechStoreOrders.Api"
 RUN dotnet publish "TechStoreOrders.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
