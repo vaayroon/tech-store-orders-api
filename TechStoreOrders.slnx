@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TechStoreOrders.Api/TechStoreOrders.Api.csproj" />
+  <Project Path="TechStoreOrders.Application/TechStoreOrders.Application.csproj" />
+  <Project Path="TechStoreOrders.Domain/TechStoreOrders.Domain.csproj" />
+  <Project Path="TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj" />
+</Solution>
