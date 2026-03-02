@@ -625,3 +625,13 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+# Bases de datos de SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+
+# Archivos temporales y de registro de SQLite
+*-journal
+*-wal
+*-shm

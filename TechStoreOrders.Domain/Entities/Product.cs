@@ -44,28 +44,38 @@ public sealed class Product
         Stock = stock;
     }
 
-    public void ReduceStock(int qty)
+    public void ReduceStock(int quantity)
     {
-        if (qty <= 0)
+        if (quantity <= 0)
         {
             throw new DomainException("Quantity must be greater than zero.");
         }
 
-        if (Stock < qty)
+        if (Stock < quantity)
         {
             throw new DomainException("Insufficient stock.");
         }
 
-        Stock -= qty;
+        Stock -= quantity;
     }
 
-    public void AddStock(int qty)
+    public void AddStock(int quantity)
     {
-        if (qty <= 0)
+        if (quantity <= 0)
         {
             throw new DomainException("Quantity must be greater than zero.");
         }
 
-        Stock += qty;
+        Stock += quantity;
+    }
+
+    public void UpdatePriceEur(decimal priceEur)
+    {
+        if (priceEur < 0m)
+        {
+            throw new DomainException("Product price cannot be negative.");
+        }
+
+        PriceEur = priceEur;
     }
 }

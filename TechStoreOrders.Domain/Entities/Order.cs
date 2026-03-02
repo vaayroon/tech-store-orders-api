@@ -56,14 +56,14 @@ public sealed class Order
         Status = OrderStatus.Confirmed;
     }
 
-    public void AddProduct(Product product, int qty)
+    public void AddProduct(Product product, int quantity)
     {
         if (Status != OrderStatus.Draft)
         {
             throw new DomainException("Confirmed orders are immutable.");
         }
 
-        if (qty <= 0)
+        if (quantity <= 0)
         {
             throw new DomainException("Quantity must be greater than zero.");
         }
@@ -73,14 +73,14 @@ public sealed class Order
             throw new DomainException("Product is required.");
         }
 
-        if (product.Stock < qty)
+        if (product.Stock < quantity)
         {
             throw new DomainException("Insufficient stock.");
         }
 
-        product.ReduceStock(qty);
+        product.ReduceStock(quantity);
 
-        var orderItem = new OrderItem(product.Id, qty, product.PriceEur);
+        var orderItem = new OrderItem(product.Id, quantity, product.PriceEur);
         Items.Add(orderItem);
     }
 
