@@ -1,20 +1,15 @@
 using TechStoreOrders.Application.Abstractions.Persistence;
 using TechStoreOrders.Domain.Exceptions;
 
-namespace TechStoreOrders.Application.Orders.Commands.AddProductToOrder;
+namespace TechStoreOrders.Application.Orders.Commands.RemoveProductFromOrder;
 
-public sealed class AddProductToOrderCommandHandler(
+public sealed class RemoveProductFromOrderCommandHandler(
     IOrderRepository orderRepository,
     IProductRepository productRepository,
-    IUnitOfWork unitOfWork) : IAddProductToOrderCommandHandler
+    IUnitOfWork unitOfWork) : IRemoveProductFromOrderCommandHandler
 {
-    public async Task HandleAsync(AddProductToOrderCommand command, CancellationToken cancellationToken = default)
+    public async Task HandleAsync(RemoveProductFromOrderCommand command, CancellationToken cancellationToken = default)
     {
-        if (command.Quantity <= 0)
-        {
-            throw new DomainException("Quantity must be greater than zero.");
-        }
-
         var order = await orderRepository.GetByIdAsync(command.OrderId, cancellationToken)
             ?? throw new DomainException("Order was not found.");
 
@@ -23,7 +18,8 @@ public sealed class AddProductToOrderCommandHandler(
 
         await unitOfWork.ExecuteInTransactionAsync(async token =>
         {
-            order.AddProduct(product, command.Quantity);
+            var restoredQuantity = order.RemoveProduct(command.ProductId);
+            product.AddStock(restoredQuantity);
             productRepository.Update(product);
             await Task.CompletedTask;
         }, cancellationToken);

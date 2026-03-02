@@ -83,4 +83,40 @@ public sealed class Order
         var orderItem = new OrderItem(product.Id, qty, product.PriceEur);
         Items.Add(orderItem);
     }
+
+    public int RemoveProduct(Guid productId)
+    {
+        if (Status != OrderStatus.Draft)
+        {
+            throw new DomainException("Confirmed orders are immutable.");
+        }
+
+        var itemsToRemove = Items
+            .Where(item => item.ProductId == productId)
+            .ToList();
+
+        if (itemsToRemove.Count == 0)
+        {
+            throw new DomainException("Product is not part of the order.");
+        }
+
+        var restoredQuantity = itemsToRemove.Sum(item => item.Quantity);
+
+        foreach (var item in itemsToRemove)
+        {
+            Items.Remove(item);
+        }
+
+        return restoredQuantity;
+    }
+
+    public void Send()
+    {
+        if (Status != OrderStatus.Confirmed)
+        {
+            throw new DomainException("Only confirmed orders can be shipped.");
+        }
+
+        Status = OrderStatus.Shipped;
+    }
 }
