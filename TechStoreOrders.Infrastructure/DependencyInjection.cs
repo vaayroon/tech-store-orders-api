@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TechStoreOrders.Application.Abstractions.Currency;
 using TechStoreOrders.Application.Abstractions.Persistence;
+using TechStoreOrders.Infrastructure.External.Frankfurter;
 using TechStoreOrders.Infrastructure.Persistence;
 using TechStoreOrders.Infrastructure.Repositories;
 
@@ -20,6 +22,12 @@ public static class DependencyInjection
 
         services.AddDbContext<TechStoreDbContext>(options =>
             options.UseSqlite(connectionString));
+
+        services.AddMemoryCache();
+        services.AddHttpClient<IExchangeRateClient, FrankfurterExchangeRateClient>(client =>
+        {
+            client.BaseAddress = new Uri("https://api.frankfurter.app/");
+        });
 
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
