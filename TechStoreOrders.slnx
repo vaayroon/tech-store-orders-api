@@ -1,11 +1,11 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="TechStoreOrders.Api/TechStoreOrders.Api.csproj" />
-    <Project Path="TechStoreOrders.Application/TechStoreOrders.Application.csproj" />
-    <Project Path="TechStoreOrders.Domain/TechStoreOrders.Domain.csproj" />
-    <Project Path="TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj" />
+    <Project Path="src/TechStoreOrders.Api/TechStoreOrders.Api.csproj" />
+    <Project Path="src/TechStoreOrders.Application/TechStoreOrders.Application.csproj" />
+    <Project Path="src/TechStoreOrders.Domain/TechStoreOrders.Domain.csproj" />
+    <Project Path="src/TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/test/">
-    <Project Path="TechStoreOrders.Domain.Tests/TechStoreOrders.Domain.Tests.csproj" />
+    <Project Path="test/TechStoreOrders.Domain.Tests/TechStoreOrders.Domain.Tests.csproj" />
   </Folder>
 </Solution>
