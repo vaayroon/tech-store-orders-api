@@ -8,11 +8,15 @@ public sealed class Order
     private const decimal DiscountThreshold = 200m;
     private const decimal DiscountRate = 0.10m;
 
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
 
     public OrderStatus Status { get; private set; }
 
-    public List<OrderItem> Items { get; } = [];
+    public List<OrderItem> Items { get; private set; } = [];
+
+    private Order()
+    {
+    }
 
     public Order(Guid id)
     {
