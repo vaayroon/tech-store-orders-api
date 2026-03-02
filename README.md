@@ -20,14 +20,28 @@ Run from repository root:
 ```bash
 dotnet tool restore
 dotnet tool run dotnet-ef database update \
-  --project TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj \
-  --startup-project TechStoreOrders.Api/TechStoreOrders.Api.csproj
+  --project src/TechStoreOrders.Infrastructure/TechStoreOrders.Infrastructure.csproj \
+  --startup-project src/TechStoreOrders.Api/TechStoreOrders.Api.csproj
 ```
 
 ## Run API
 ```bash
-dotnet run --project TechStoreOrders.Api/TechStoreOrders.Api.csproj
+dotnet run --project src/TechStoreOrders.Api/TechStoreOrders.Api.csproj
 ```
+
+Local URLs from `launchSettings.json`:
+- HTTP: `http://localhost:5082`
+- HTTPS: `https://localhost:7139` (also binds `http://localhost:5082`)
+- Swagger UI: `http://localhost:5082/swagger` or `https://localhost:7139/swagger`
+
+## Run With Docker Compose
+```bash
+docker compose up --build
+```
+
+Docker URL:
+- `http://localhost:8080`
+- Swagger UI: `http://localhost:8080/swagger`
 
 ## Run Tests
 ```bash
@@ -35,10 +49,12 @@ dotnet test TechStoreOrders.slnx
 ```
 
 ## How To Verify The 200 EUR Discount
-Set `BASE_URL` to the URL printed by `dotnet run` (for example, `http://localhost:5182`):
+Set `BASE_URL` to a running API URL:
+- Local HTTP: `http://localhost:5082`
+- Docker: `http://localhost:8080`
 
 ```bash
-BASE_URL="http://localhost:5182"
+BASE_URL="http://localhost:5082"
 ```
 
 1. Create an empty order:
